@@ -9,7 +9,15 @@ function formSubmitted(e) {
 }
 
 function renderGifs(response) {
-  console.log(response)
+  let result = '';
+
+  for (let meme of response.data) {
+    result += `
+      <img src="${meme.images.original.url}" alt="${meme.alt_text}" />
+    `
+  }
+
+  document.querySelector('.js-memes-container').innerHTML = result;
 }
 
 function getMemes(searchExpression) {
