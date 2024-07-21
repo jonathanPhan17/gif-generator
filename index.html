@@ -3,17 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Image Search</title>
+  <title>AI Image Generator</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
-    <h1>AI Image Search</h1>
-    <p> Write your prompt here</p>
+    <h1 class="title"><strong>AI Image Generator</strong></h1>
     <form action="#" class="ai-form">
-      <input type="text" name="user-input" id="user-input" placeholder="type your prompt here..." required />
+      <input class="user-input" type="text" name="user-input" id="user-input" placeholder="search.." required />
       <button type="button" id="button">Search</button>
     </form>
+
+    <div class="result">
+      <div id="image"></div>
+    </div>
+
   </div>
   <script src="index.js"></script>
 </body>
