@@ -1,18 +1,14 @@
 const API_KEY = "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";
 
-const maxImages = 6; 
+const maxImages = 4; 
 let selectedImageNumber = null;
-
-function getRandomNumber(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
 
 function disableLoadingButton() {
   document.getElementById("button").disabled = true;
 }
 
 function enableLoadingButton() {
-  document.getElementById("button").disabled = !true;
+  document.getElementById("button").disabled = false;
 }
 
 function clearImages() {
@@ -30,7 +26,7 @@ async function generateImages(input) {
   const imageUrls = [];
 
   for (let i = 0; i < maxImages; i++) {
-    const randomNumber = getRandomNumber(1, 10000);
+    const randomNumber = Math.random();
     const prompt = `${input} ${randomNumber}`;
 
     const response = await fetch(
@@ -52,7 +48,6 @@ async function generateImages(input) {
 
     const img = document.createElement("img");
     img.src = imgUrl;
-    img.alt = `art-${i + 1}`;
     img.onclick = () => downloadImage(imgUrl, i);
     document.getElementById("image-grid").appendChild(img);
   }
@@ -72,6 +67,6 @@ function downloadImage(imgUrl, imageNumber) {
   const link = document.createElement("a");
   link.href = imgUrl;
 
-  link.download = `image-${imageNumber + 1}.jpg`;
+  link.download = `image-${imageNumber}.jpg`;
   link.click();
 }
