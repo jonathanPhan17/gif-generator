@@ -3,28 +3,62 @@ const API_PREFIX = "https://api.giphy.com/v1/gifs/search?api_key=";
 const API_SETTINGS = "offset=0&rating=g&lang=en&bundle=messaging_non_clips";
 
 function formSubmitted(e) {
-  e.preventDefault();
-  let inputFieldContent = document.querySelector('[name=memeInput]').value
-  getMemes(inputFieldContent)
+  e.preventDefault(); 
+  const inputField = document.querySelector('[name=memeInput]');
+  const inputFieldContent = inputField.value.trim(); 
+
+  if (!inputFieldContent) {
+    alert("invalid input"); 
+  }
+
+  getMemes(inputFieldContent); 
 }
 
 function renderGifs(response) {
-  let result = '';
-
-  for (let meme of response.data) {
-    result += `
-      <img src="${meme.images.original.url}" alt="${meme.alt_text}" />
-    `
-  }
-
-  document.querySelector('.js-memes-container').innerHTML = result;
+  const imageContainer = document.querySelector(".js-memes-container");
+  imageContainer.innerHTML = ""; 
+  
+  response.data.forEach((gif, index) => {
+    const img = document.createElement("img");
+    img.src = gif.images.original.url; 
+    img.alt = `meme-${index + 1}`;
+    imageContainer.appendChild(img);
+  });
 }
 
-function getMemes(searchExpression) {
-  fetch(
-    `${API_PREFIX}${API_KEY}&q=${searchExpression}&limit=25&${API_SETTINGS}`
-  ).then(data => data.json())
-   .then(renderGifs);
+async function getMemes(searchExpression) {
+  disableSubmitButton(); 
+
+  const loading = document.getElementById("loading");
+  loading.style.display = "block"; 
+
+  try {
+    const response = await fetch(
+      `${API_PREFIX}${API_KEY}&q=${searchExpression}&${API_SETTINGS}`
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch memes"); 
+    }
+
+    const data = await response.json();
+    renderGifs(data); 
+
+  } catch (error) {
+    alert(error.message); 
+
+  } finally {
+    enableSubmitButton(); 
+    loading.style.display = "none"; 
+  }
+}
+
+function disableSubmitButton() {
+  document.querySelector("button").disabled = true;
+}
+
+function enableSubmitButton() {
+  document.querySelector("button").disabled = false;
 }
 
 document.querySelector('#memeForm').addEventListener('submit', formSubmitted);
