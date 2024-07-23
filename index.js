@@ -29,7 +29,7 @@ function renderGifs(response) {
 async function getMemes(searchExpression) {
   disableSubmitButton(); 
 
-  const loading = document.getElementById("loading");
+  const loading = document.querySelector(".loading");
   loading.style.display = "block"; 
 
   try {
