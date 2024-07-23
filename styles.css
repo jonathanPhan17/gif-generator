@@ -23,3 +23,8 @@ img {
   height: 220px;
   margin: 10px;
 }
+
+.loading {
+  display: none;
+  font-size: 1.2rem;
+}

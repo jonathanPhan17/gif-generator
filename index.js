@@ -11,7 +11,7 @@ function formSubmitted(e) {
     alert("invalid input"); 
   }
 
-  getMemes(inputFieldContent); 
+  getMemes(inputFieldContent);
 }
 
 function renderGifs(response) {
