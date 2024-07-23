@@ -3,16 +3,14 @@ const API_PREFIX = "https://api.giphy.com/v1/gifs/search?api_key=";
 const API_SETTINGS = "offset=0&rating=g&lang=en&bundle=messaging_non_clips";
 
 document.addEventListener("DOMContentLoaded", () => {
-  function formSubmitted(e) {
-    e.preventDefault();
+  function formSubmitted() {
     const inputField = document.querySelector("[name='user-input']");
     const inputFieldContent = inputField.value.trim();
 
     if (!inputFieldContent) {
-      alert("invalid input");
-      return;
+      const errorContent = document.querySelector(".js-memes-container");
+      errorContent.innerHTML += `<p> Please enter valid input </p>`;
     }
-
     getMemes(inputFieldContent);
   }
 
