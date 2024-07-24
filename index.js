@@ -40,7 +40,7 @@ const API_SETTINGS = "offset=0&rating=g&lang=en&bundle=messaging_non_clips";
       );
 
       if (!response.ok) {
-        validationError
+        throw new Error ("could not fetch da memes")
       }
 
       const data = await response.json();
