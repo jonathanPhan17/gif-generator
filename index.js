@@ -2,14 +2,16 @@ const API_KEY = "MhQNrKVHO1JvNzUITP9zmToi1B0m5Q2n";
 const API_PREFIX = "https://api.giphy.com/v1/gifs/search?api_key=";
 const API_SETTINGS = "offset=0&rating=g&lang=en&bundle=messaging_non_clips";
 
-document.addEventListener("DOMContentLoaded", () => {
-  function formSubmitted() {
+  function formSubmitted(e) {
+    e.preventDefault()
     const inputField = document.querySelector("[name='user-input']");
     const inputFieldContent = inputField.value.trim();
+    const validationError = document.querySelector(".error-message");
 
     if (!inputFieldContent) {
-      const errorContent = document.querySelector(".js-memes-container");
-      errorContent.innerHTML += `<p> Please enter valid input </p>`;
+      validationError.style.display = "block";
+    } else {
+      validationError.style.display = "";
     }
     getMemes(inputFieldContent);
   }
@@ -18,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const imageContainer = document.querySelector(".js-memes-container");
     imageContainer.innerHTML = "";
 
-    response.data.forEach((gif, index) => {
+    response.data.map((gif, index) => {
       const img = document.createElement("img");
       img.src = gif.images.original.url;
       img.alt = `meme-${index + 1}`;
@@ -38,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
       );
 
       if (!response.ok) {
-        throw new Error("Failed to fetch memes");
+        validationError
       }
 
       const data = await response.json();
@@ -59,5 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector("#button").disabled = false;
   }
 
-  document.querySelector(".meme-form").addEventListener("submit", formSubmitted);
-});
+  document
+    .querySelector(".meme-form")
+    .addEventListener("submit", formSubmitted);
