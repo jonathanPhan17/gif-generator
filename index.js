@@ -7,12 +7,16 @@ const API_SETTINGS = "offset=0&rating=g&lang=en&bundle=messaging_non_clips";
     const inputField = document.querySelector("[name='user-input']");
     const inputFieldContent = inputField.value.trim();
     const validationError = document.querySelector(".error-message");
+    
+
+    validationError.style.display = "none";
+    validationError.textContent = "";
 
     if (!inputFieldContent) {
+      validationError.textContent = "please enter input!";
       validationError.style.display = "block";
-    } else {
-      validationError.style.display = "";
-    }
+      return;
+    } 
     getMemes(inputFieldContent);
   }
 
@@ -34,19 +38,25 @@ const API_SETTINGS = "offset=0&rating=g&lang=en&bundle=messaging_non_clips";
     const loading = document.querySelector("#loading");
     loading.style.display = "block";
 
+    const imageContainer = document.querySelector(".js-memes-container");
+    imageContainer.innerHTML = "";
+
     try {
       const response = await fetch(
         `${API_PREFIX}${API_KEY}&q=${searchExpression}&${API_SETTINGS}`
       );
+      
+      const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error ("could not fetch da memes")
+      if (data.data.length === 0 || !response.ok) {
+        throw new Error("Memes not found!");
       }
 
-      const data = await response.json();
       renderGifs(data);
     } catch (error) {
-      alert(error.message);
+      const errorMessage = document.querySelector(".error-message");
+      errorMessage.textContent = error.message;
+      errorMessage.style.display = "block";
     } finally {
       enableSubmitButton();
       loading.style.display = "none";
@@ -61,6 +71,4 @@ const API_SETTINGS = "offset=0&rating=g&lang=en&bundle=messaging_non_clips";
     document.querySelector("#button").disabled = false;
   }
 
-  document
-    .querySelector(".meme-form")
-    .addEventListener("submit", formSubmitted);
+  document.querySelector(".meme-form").addEventListener("submit", formSubmitted);
