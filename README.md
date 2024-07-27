@@ -8,13 +8,16 @@ The Meme Generator project is a web application that lets users search for memes
 
 ```
 As a meme lover
-I want to easily share GIFs on Twitter so that I can engage my friends with fun content.
+I want to easily share GIFs on Twitter 
+so that I can engage my friends with fun content.
 
 As a procrastinator
-I want to search for "work from home fails" GIFs so I can laugh and feel better about my productivity.
+I want to search for "work from home fails" GIFs 
+so I can laugh and feel better about my productivity.
 
 As a bored student
-I want my GIF feed to feature sarcastic motivational quotes so I can laugh while pretending to get inspired.
+I want my GIF feed to feature sarcastic motivational quotes 
+so I can laugh while pretending to get inspired.
 
 
 ```
