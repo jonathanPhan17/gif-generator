@@ -1,8 +1,8 @@
-# Meme-Generator
+# Gif-Generator
 
-Hosting Link: https://jonathanphan17.github.io/meme-generator/
+Hosting Link: https://jonathanphan17.github.io/gif-generator/
 
-The Meme Generator project is a web application that lets users search for memes. It uses the Giphy API to fetch meme results. Users can enter a keyword in the search bar, and the application will display memes related to that keyword. 
+The Gif Generator project is a web application that lets users search for memes. It uses the Giphy API to fetch meme results. Users can enter a keyword in the search bar, and the application will display memes related to that keyword. 
 
 ## User stories 
 
